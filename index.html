@@ -1,12 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dinin dokument</title>
-</head>
-<body>
-    
-</body>
+    <style>
+      .main {
+        width: 800px;
+        height: 800px;
+        margin: 100px auto;
+        background-color: black;
+        clear: both;
+      }
+      .box {
+        width: 200px;
+        height: 200px;
+        border: 1px solid red;
+        float: left;
+        box-sizing: border-box;
+        font-size: 100px;
+        text-align: center;
+        line-height: 200px;
+        color: white;
+      }
+      .row {
+        width: 800px;
+        height: 200px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Score: <span id = "score"></span></h1>
+    <div class="main">
+      <div class="row">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+      <div class="row">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+      <div class="row">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+      <div class="row">
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+        <div class="box"></div>
+      </div>
+    </div>
+    <div class="scoreContainer">
+      <p style="float: left">Score:</p>
+      <p class="score"></p>
+    </div>
+  </body>
+
+  <script>
+    let boxes = document.querySelectorAll(".box");
+    let scoreText = document.getElementById("score");
+    // console.log(boxes);
+
+    // //let polje = [1, 2, 3, 4, 5, 6];
+    // let polje = [];
+    // polje[0] = [1, 2, 3, 4];
+    // polje[1] = [5, 6, 7, 8];
+    // polje[2] = [9, 10, 11, 12];
+    // polje[3] = [13, 14, 15, 16];
+
+    // let i;
+
+    // for (i = 0; i < polje.length; i++) {
+    //   for (let j = 0; j < polje[i].length; j++){
+    //     console.log(polje[i][j]);
+    //   }
+    // }
+
+    // TODO Random raspored kartica i umjesto brojeva trebaju se prikazivati slike
+    // slike umjesto teksta
+        //unutar div img, defaultno se vidi background
+    let memo = [
+      [1, 1, 2, 2],
+      [3, 3, 4, 4],
+      [5, 5, 6, 6],
+      [7, 7, 8, 8],
+    ];
+
+    let firstChoice = -1;
+    let secondChoice = -2;
+    let score = 0;
+    scoreText.innerHTML = score;
+    //dodavanje event listenera na boxove => punjenje teksta u div
+    for (let i = 0; i < boxes.length; i++) {
+      boxes[i].addEventListener("click", function () {
+        boxes[i].innerHTML = memo[Math.floor(i / 4)][i % 4];
+        if (firstChoice == -1) {
+          firstChoice = memo[Math.floor(i / 4)][i % 4];
+        } else {
+          secondChoice = memo[Math.floor(i / 4)][i % 4];
+        }
+        if (
+          firstChoice != -1 &&
+          secondChoice != -2 &&
+          firstChoice == secondChoice
+        ) {
+          console.log("jednaki");
+          firstChoice = -1;
+          secondChoice = -2;
+          score += 10;
+          console.log("Score: " + score);
+          scoreText.innerHTML = score;
+        } else if (firstChoice != -1 && secondChoice != -2) {
+          console.log("razliciti");
+          firstChoice = -1;
+          secondChoice = -2;
+          console.log("Score: " + score);
+        }
+      });
+    }
+  </script>
 </html>
